@@ -1,8 +1,11 @@
 # Getting Started with PlantUML Diagrams
 
-## This post covers some of the basic aspects of visualizing ideas with diagrams.
+This post covers some of the basic aspects of visualising ideas with diagrams.
 
-PlantUML provides the capability to define UML diagrams with plain text. It supports the creation of different diagram types including:
+## Diagrams As Code
+PlantUML diagrams are “Diagrams as Code” in PlantUML syntax.
+
+PlantUML diagrams are defined in plain text including :
 - Sequence diagram
 - Usecase diagram
 - Class diagram
@@ -11,3 +14,5 @@ PlantUML provides the capability to define UML diagrams with plain text. It supp
 - and other types
 
 PlantUML diagram can be exported into svg, png, pdf and latex files.
+
+
