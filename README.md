@@ -2,7 +2,7 @@
 
 ## This post covers some of the basic aspects of visualizing ideas with diagrams.
 
-PlantUML provides the capability to define UML diagrams with plain text. It support creation of different diagram types including:
+PlantUML provides the capability to define UML diagrams with plain text. It supports creation of different diagram types including:
 - Sequence diagram
 - Usecase diagram
 - Class diagram
