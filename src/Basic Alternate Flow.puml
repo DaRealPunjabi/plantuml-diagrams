@@ -1,0 +1,43 @@
+/' Basic Alternate Flow Sequence Diagram '/
+@startuml
+
+!include common-participants.iuml
+!include common-skins.iuml
+
+!startsub Client_Credentials
+
+autonumber
+
+title Basic Alternate Flow
+
+activate inb_svc_external
+
+inb_svc_external -> ingress_gateway ++ : Service request + \nclientid & secret
+
+    ingress_gateway -> dsp_identity : Autheticate with\nclientid & secret
+        activate dsp_identity
+        dsp_identity -> dsp_identity : Validate credentials
+
+    alt Invalid credentials
+        dsp_identity --> ingress_gateway : Failed
+
+    else Valid credentials
+        return Access token
+
+    ingress_gateway -> svc_resource ++ : Forward request +\ntoken
+
+        svc_resource -> svc_resource : Validate token
+
+    return response
+
+    end alt
+
+
+return response [success..failure]
+
+deactivate inb_svc_external
+
+!endsub Client_Credentials
+
+@enduml
+

@@ -1,0 +1,37 @@
+/' Common participants used in my projects '/
+
+!include common-skins.iuml
+
+hide unlinked
+
+box "External Layer"
+    actor "Commercial\nCustomer" as inb_commercial_customer <<customer>>
+    boundary "Mobile App" as inb_mobile_app <<customer>>
+end box
+
+box "External Layer\nThird Party"
+    boundary "Third Party\nService" as inb_svc_external <<supplierA>>
+end box
+
+
+box "Ingress Layer"
+    boundary "Proxy" as ingress_proxy 
+    boundary "Api Gatway" as ingress_gateway <<internal>> 
+end box
+
+box "Service Layer"
+    boundary "Resource Service" as svc_resource <<internal>>
+    boundary "Obtain Consent" as svc_obtain_consent <<internal>>
+    boundary "Create Agreement" as svc_create_agreement <<internal>>
+    boundary "Dispatch Agreement" as svc_dispatch_agreement <<internal>>
+end box
+
+box "Security Layer"
+    boundary "Identity Provider" as dsp_identity <<internal>>
+end box
+
+box "External Layer"
+    actor "Commercial Customer" as otb_commercial_customer <<customer>>
+    boundary "Mobile App" as otb_mobile_app <<customer>>
+end box
+

@@ -1,0 +1,35 @@
+/' Basic Synchronous Flow Sequence Diagram '/
+@startuml
+
+!include common-participants.iuml
+!include common-skins.iuml
+
+!startsub Client_Credentials
+
+autonumber
+hide stereotype
+
+title Basic Client Credentials Flow With Service Request
+
+inb_commercial_customer -> inb_mobile_app ++ : Select service
+
+    inb_mobile_app -> ingress_gateway ++ : Service request +\nclientid & secret 
+
+        ingress_gateway -> dsp_identity ++ : Autheticate with\nclientid & secret
+
+            dsp_identity -> dsp_identity : Validate credentials
+
+        return Access token
+
+        ingress_gateway -> svc_resource ++ : Forward request +\ntoken
+            svc_resource -> svc_resource : Validate token
+        return response
+
+    return response
+
+return response
+
+!endsub Client_Credentials
+
+@enduml
+

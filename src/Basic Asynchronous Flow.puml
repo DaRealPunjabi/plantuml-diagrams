@@ -1,0 +1,34 @@
+/' Basic Asynchronous Flow Sequence Diagram '/
+@startuml
+
+!include common-participants.iuml
+!include common-skins.iuml
+
+!startsub Obtain_Consent
+
+autonumber
+
+title Basic Asynchronous Flow
+
+activate svc_obtain_consent
+
+svc_obtain_consent -> svc_create_agreement ++ : Offer details
+
+    svc_create_agreement -> svc_dispatch_agreement ++ : Agreement and involved parties
+
+        par
+            svc_dispatch_agreement -\ otb_commercial_customer : Request consent
+
+            svc_dispatch_agreement -> svc_dispatch_agreement : Immediate return\nDo not wait
+        end
+
+    return Email sent
+
+return Agreement dispatched
+
+deactivate svc_obtain_consent
+
+!endsub Obtain_Consent
+
+@enduml
+

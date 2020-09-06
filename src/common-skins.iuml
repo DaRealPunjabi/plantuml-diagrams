@@ -1,0 +1,71 @@
+/' Common skins used in my project '/
+/' https://plantuml-documentation.readthedocs.io/en/latest/formatting/all-skin-params.html '/
+
+
+skinparam useBetaStyle true
+
+!define Red db0011
+!define Black 000000
+!define White ffffff
+!define LightGrey d7d8d6
+!define DarkGrey 767676
+
+
+skinparam actor {
+    BackgroundColor<<customer>> #66ffcc
+    BackgroundColor<<supplierA>> #ccff66
+    BackgroundColor<<internal>> #db0011
+    BorderColor<<internal>> #000000
+}
+
+skinparam boundary { 
+    BackgroundColor<<customer>> #66ffcc
+    BackgroundColor<<supplierA>> #976ef3
+    BackgroundColor<<internal>> #db0011
+    BorderColor<<internal>> #000000
+}
+
+
+skinparam sequence {
+
+    /' Actor '/
+/'
+    ActorBackgroundColor<<internal>> #db0011
+    ActorLineColor<<internal>> #000000
+'/
+    /' Boundary '/
+/'
+    BoundaryBackgroundColor<<internal>> #db0011
+    BoundaryLineColor<<internal>> #000000
+'/
+
+    /' Box '/
+    BoxBackgroundColor White
+    BoxBorderColor LightGrey
+    BoxBorderThickness 4
+    BoxFontColor Black
+    BoxFontSize 12
+
+    /' Group '/
+    GroupBackgroundColor CornFlowerBlue
+    GroupBodyBackgroundColor White
+    GroupBorderColor CornFlowerBlue
+
+    /' lifeline '/
+    LifeLineBackgroundColor LightSkyBlue
+    LifeLineBorderColor LightGrey    
+
+}
+
+/' User Defined Styles '/
+<style>
+    ' scope to sequenceDiagram elements
+    sequenceDiagram {
+     ' define a new style, using CSS class syntax
+     .seqInternal {
+      LineColor #000000
+      BackgroundColor #db0011
+     }
+    }
+}
+</style>

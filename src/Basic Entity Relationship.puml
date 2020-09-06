@@ -1,0 +1,33 @@
+/' Basic Activity Diagram '/
+@startuml
+
+' hide the spot and stereotype 
+hide circle
+hide stereotype
+
+start
+
+:Enter pin;
+
+if (Authorise pin) then (Yes)
+    repeat :Enter amount;
+        backward:Display balance;
+    repeat while (Sufficient funds?) is (No) not (Yes)
+
+    fork
+        :Eject money;
+    fork again
+        :Update balance;
+        detach
+    fork again
+        :Print receipt;
+    endfork
+
+    :Display balance;
+else (No)
+  stop
+endif
+
+end
+
+@enduml

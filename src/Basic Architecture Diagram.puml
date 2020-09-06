@@ -1,0 +1,60 @@
+/' Basic Asynchronous Flow Sequence Diagram '/
+@startuml
+
+!include <c4/C4_Component.puml>  
+
+!include <office/Users/mobile_user.puml>
+
+skinparam database {
+    BorderColor #Black
+    FontColor #White
+    FontStyle bold
+}
+
+' hide the spot
+hide stereotype
+
+title Basic Architecture Diagram
+
+Person(customer, Customer, "<$mobile_user>") #LightSkyBlue
+
+Boundary(experience, "Experience Layer") #khaki {
+    System(e_customer, "Customer UI")
+    System(e_product, "Product UI")
+}
+
+Boundary(process, "Process Layer") #LightSkyBlue {
+    System(p_customer, "Customer Services")
+    System(p_product, "Product Services")
+    database "Reference Data" as ref_db #DarkGray
+} 
+
+Boundary(system, "System Layer") #LightSalmon {
+    System(s_customer, "Customer Management")
+    System(s_product, "Account Managment")
+    database "Customer DB" as cus_db #Teal
+    database "Account DB" as acc_db #Teal
+    database "Product DB" as pdt_db #Teal
+} 
+
+
+Lay_D(customer, e_customer)
+Lay_D(customer, e_product)
+Rel_U(customer, experience, "uses")
+
+Rel_D(e_customer, p_customer, "json/https")
+Rel_D(e_product, p_product, "json/https")
+Rel_R(p_product, ref_db, "Uses")
+
+Rel_D(p_customer, s_customer, "json/https")
+Rel_D(p_product, s_product, "json/https")
+
+Lay_D(s_customer, cus_db)
+Lay_D(s_product, acc_db)
+Lay_D(s_product, pdt_db)
+
+Rel_U(pdt_db, ref_db, "data transfer")
+
+
+@enduml
+

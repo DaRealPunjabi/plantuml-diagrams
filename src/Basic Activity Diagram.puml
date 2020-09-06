@@ -1,0 +1,50 @@
+/' Basic Asynchronous Flow Sequence Diagram '/
+@startuml
+
+' hide the spot
+hide stereotype
+
+skinparam useBetaStyle true
+
+skinparam activity {
+    ArrowColor #222266
+    ArrowFontSize 14
+    ArrowFontStyle bold
+    BackgroundColor #527BC6
+    BorderColor black
+    BorderThickness 3
+    FontColor white
+    FontSize 17
+}
+
+start
+
+:Enter pin;
+
+if (Valid pin) then (Yes)
+  :Display services;
+  :Select cash
+  withdrawal;
+else (No)
+#Red :Error message;
+  stop
+endif
+
+repeat :Enter amount;
+  backward:Display balance;
+repeat while (Sufficient funds) is (No)
+->Yes;
+
+fork
+  :Update balance;
+  detach
+forkagain
+  :Eject money;
+forkagain
+  :Print receipt;
+endfork
+#Green:Take cash;
+end
+
+@enduml
+
