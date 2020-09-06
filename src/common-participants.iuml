@@ -16,7 +16,7 @@ end box
 
 box "Ingress Layer"
     boundary "Proxy" as ingress_proxy 
-    boundary "Api Gatway" as ingress_gateway <<internal>> 
+    boundary "Api Gateway" as ingress_gateway <<internal>> 
 end box
 
 box "Service Layer"
