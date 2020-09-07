@@ -5,29 +5,73 @@
 hide circle
 hide stereotype
 
-start
+' avoid problems with angled crows feet
+skinparam linetype ortho
 
-:Enter pin;
+skinparam rectangle {
+    roundCorner 25
+}
 
-if (Authorise pin) then (Yes)
-    repeat :Enter amount;
-        backward:Display balance;
-    repeat while (Sufficient funds?) is (No) not (Yes)
+rectangle "Customer Domain" #008a8c {
+    
+    entity "Customer" as c01  {
+        * Identifying attributes
+        customerId : <<auto generated>> integer
+        --
+        * Mandatory attributes
+        firstName : varchar(255)
+        lasttName : varchar(255)
+        birthDate: date
+        --
+        * Optional attributes
+        middleNames : varchar(255)
+    }
 
-    fork
-        :Eject money;
-    fork again
-        :Update balance;
-        detach
-    fork again
-        :Print receipt;
-    endfork
+    entity "CustomerParty" as c02 {
+        * Identifying attributes
+        customerId : integer <<PK>
+        partyId : integer <<PK>
+    }
 
-    :Display balance;
-else (No)
-  stop
-endif
+    entity "Party" as c03 {
+        * Identifying attributes
+        partyId : <<auto generated>> integer
+        --
+        * Mandatory attributes
+        partyType : varchar(50)
+    }
+}
 
-end
+rectangle "Financial Domain" #fcb0b1 {
+    entity "Account" as a01 {
+        * Identifying attributes
+        sortCode : varchar(6) <<PK>>
+        accountNumber : varchar(8) <<PK>>
+        --
+        * Mandatory attributes
+        customerId : integer <<FK>>
+        openDate : date
+        balance : numeric(15,2)
+        productCode : varchar(50) <<FK>>
+    }
+}
+
+rectangle "Product Domain" #d8e2bf {
+    entity "Product" as p01 {
+        * Identifying attributes
+        productCode : varchar(50) <<PK>>
+        --
+        * Mandatory attributes
+        launchDate : date
+    }
+}
+
+
+c01 ||.right.|{ c02
+c02 }|.right.|| c03
+
+c01 ||.down.|{ a01
+a01 ||.right.|| p01
+
 
 @enduml
