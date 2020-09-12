@@ -49,8 +49,8 @@ rectangle "Service" <<gcplayer>>  as rec_svc1{
 } 
 
 rectangle "Storage" <<gcplayer>>  as rec_stg1{
-    rectangle "Cloud Sql\n<$KubernetesEngine,color=#1a73e8>" <<noborder>> as sql1
-    rectangle "Cloud Storage\n<$Monitoring,color=#1a73e8>" <<noborder>> as stg1
+    rectangle "Cloud Sql\n<$CloudSQL,color=#1a73e8>" <<noborder>> as sql1
+    rectangle "Cloud Storage\n<$CloudStorage,color=#1a73e8>" <<noborder>> as stg1
 } 
 
 title Basic GCP/GKE Micro-Service Diagram
