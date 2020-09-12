@@ -1,0 +1,74 @@
+/' Basic Asynchronous Flow Sequence Diagram '/
+@startuml
+
+!include <awslib/awscommon>
+!include <awslib/Compute/Batch.puml>
+
+!include <tupadr3/common>
+!include <office/Users/mobile_user.puml>
+
+!include kubernetes.iuml
+
+hide unliked
+hide stereotype
+
+skinparam rectangle<<consumer>> {
+  backgroundColor #f2e4f5
+  borderColor black
+  borderStyle solid
+  shadowing false
+}
+
+skinparam rectangle<<noborder>> {
+  backgroundColor white
+  borderColor white
+  borderStyle solid
+  shadowing false
+}
+
+skinparam rectangle<<gcplayer>> {
+  backgroundColor white
+  borderColor black
+  borderStyle dotted
+  shadowing false
+}
+
+rectangle "Consumer" <<consumer>>  as rec_c1 {
+    rectangle "<$mobile_user*.5>" <<noborder>> as mobile_user
+} 
+
+rectangle "Ingress" <<gcplayer>>  as rec_in1{
+    rectangle "CDN\n<$CloudCDN,color=#1a73e8>" <<noborder>> as cdn
+    rectangle "Load\nBalancer\n<$CloudLoadBalancing,color=#1a73e8>" <<noborder>> as load_balancer
+} 
+
+rectangle "Service" <<gcplayer>>  as rec_svc1{
+    rectangle "Data Provision\nAPI\n<$KubernetesEngine,color=#1a73e8>" <<noborder>> as svc1
+    rectangle "Monitoring\n<$Monitoring,color=#1a73e8>" <<noborder>> as mon1
+    rectangle "Logging\n<$Logging,color=#1a73e8>" <<noborder>> as log1
+} 
+
+rectangle "Storage" <<gcplayer>>  as rec_stg1{
+    rectangle "Cloud Sql\n<$KubernetesEngine,color=#1a73e8>" <<noborder>> as sql1
+    rectangle "Cloud Storage\n<$Monitoring,color=#1a73e8>" <<noborder>> as stg1
+} 
+
+title Basic GCP/GKE Micro-Service Diagram
+
+mobile_user <<..[#green]right..>> cdn
+
+cdn <<..[#green]down..>> load_balancer
+
+cdn ..[hidden]right.. svc1
+
+load_balancer <<..[#green]up..>> svc1
+
+svc1 ..[hidden].. mon1
+mon1 ..[hidden]right.. log1
+
+sql1 ..[hidden]down.. stg1
+
+svc1 <<..[#green]right..>> sql1
+svc1 <<..[#green]right..>> stg1
+
+@enduml
